@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/compare/v1.1.0...v1.1.1) (2025-06-13)
+
+
+### Bug Fixes
+
+* add codecov.yml to fix path mapping for coverage reporting ([757717d](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/commit/757717d6408c3a339f44d51d7cd1eeaa3bc1151a))
+
 # [1.1.0](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/compare/v1.0.1...v1.1.0) (2025-06-13)
 
 
