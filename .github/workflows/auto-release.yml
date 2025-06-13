@@ -144,14 +144,15 @@ jobs:
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
 
-      - name: Publish to Open VSX Registry
-        if: steps.semantic.outputs.should_release == 'true'
-        run: |
-          echo "Publishing to Open VSX Registry..."
-          ovsx publish *.vsix --pat ${{ secrets.OVSX_PAT }}
-          echo "Successfully published to Open VSX Registry"
-        env:
-          OVSX_PAT: ${{ secrets.OVSX_PAT }}
+      # Temporarily disabled until namespace is verified
+      # - name: Publish to Open VSX Registry
+      #   if: steps.semantic.outputs.should_release == 'true'
+      #   run: |
+      #     echo "Publishing to Open VSX Registry..."
+      #     ovsx publish *.vsix --pat ${{ secrets.OVSX_PAT }}
+      #     echo "Successfully published to Open VSX Registry"
+      #   env:
+      #     OVSX_PAT: ${{ secrets.OVSX_PAT }}
 
       - name: Upload coverage to Codecov
         if: steps.semantic.outputs.should_release == 'true'
@@ -169,7 +170,7 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Version:** ${{ steps.semantic.outputs.next_version }}" >> $GITHUB_STEP_SUMMARY
           echo "**VS Code Marketplace:** Published" >> $GITHUB_STEP_SUMMARY
-          echo "**Open VSX Registry:** Published" >> $GITHUB_STEP_SUMMARY
+          echo "**Open VSX Registry:** Disabled (pending namespace verification)" >> $GITHUB_STEP_SUMMARY
           echo "**GitHub Release:** Created" >> $GITHUB_STEP_SUMMARY
           echo "**Coverage:** Uploaded to Codecov" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
