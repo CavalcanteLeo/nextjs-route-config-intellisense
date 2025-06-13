@@ -26,6 +26,37 @@ function transformFile(inputPath, outputPath) {
     filename: inputPath,
     sourceMaps: true,
     sourceFileName: path.relative(process.cwd(), inputPath),
+    configFile: path.join(__dirname, '..', 'babel.config.js'),
+    presets: [
+      [
+        '@babel/preset-env',
+        {
+          targets: {
+            node: '20',
+          },
+          modules: 'commonjs',
+        },
+      ],
+      [
+        '@babel/preset-typescript',
+        {
+          allowNamespaces: true,
+        },
+      ],
+    ],
+    plugins: [
+      [
+        'babel-plugin-istanbul',
+        {
+          exclude: [
+            '**/*.test.ts',
+            '**/*.test.js',
+            '**/test/**',
+            '**/node_modules/**',
+          ],
+        },
+      ],
+    ],
   });
 
   // Write the transformed code
