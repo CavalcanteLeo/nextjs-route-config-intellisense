@@ -92,6 +92,9 @@ jobs:
 
       - name: Determine next version
         id: semantic
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npx semantic-release --dry-run > semantic-output.txt 2>&1 || true
           cat semantic-output.txt
@@ -122,6 +125,7 @@ jobs:
         if: steps.semantic.outputs.should_release == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npx semantic-release
 
