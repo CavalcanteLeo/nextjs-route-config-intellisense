@@ -2,7 +2,7 @@
   "name": "nextjs-route-config-intellisense",
   "displayName": "Next.js Route Config IntelliSense",
   "description": "Intelligent autocompletion for Next.js Route Segment Config exports",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "LeonardoCavalcante",
   "author": {
     "name": "Leonardo Cavalcante",

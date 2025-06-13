@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/compare/v1.0.0...v1.0.1) (2025-06-13)
+
+
+### Bug Fixes
+
+* correct publisher ID to match VS Code Marketplace account ([a68fc24](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/commit/a68fc24e195b513bf62f26f428678ace7c67d438))
+
 # 1.0.0 (2025-06-13)
 
 
