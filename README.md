@@ -9,16 +9,16 @@
 
 Intelligent autocompletion for Next.js Route Segment Config exports. Get instant suggestions for all Next.js route configuration options with detailed explanations and proper TypeScript support.
 
-## ✨ Features
+## Features
 
 - **Complete Route Segment Config Support**: All 8 export types with comprehensive value options
 - **Intelligent Context**: Only shows relevant completions in appropriate files
 - **Rich Documentation**: Detailed explanations for each configuration option
 - **TypeScript & JavaScript**: Full support for `.ts`, `.tsx`, `.js`, and `.jsx` files
 - **Performance Optimized**: Lightweight and fast completion suggestions
-- **Up-to-date**: Covers all Next.js 14+ configuration options including experimental features
+- **Up-to-date**: Covers all Next.js 15+ configuration options including experimental features
 
-## 🚀 Supported Configurations
+## Supported Configurations
 
 ### `dynamic`
 
@@ -73,7 +73,7 @@ Intelligent autocompletion for Next.js Route Segment Config exports. Get instant
 - `30` - 30 seconds maximum execution time
 - `60` - 60 seconds maximum execution time
 
-## 📦 Installation
+## Installation
 
 ### VS Code Marketplace
 
@@ -94,7 +94,7 @@ Intelligent autocompletion for Next.js Route Segment Config exports. Get instant
 1. Download the latest `.vsix` file from [GitHub Releases](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/releases)
 2. Install via command line: `code --install-extension nextjs-route-config-intellisense-x.x.x.vsix`
 
-## 🎯 Usage
+## Usage
 
 1. **Create or open a Next.js route file** (e.g., `app/page.tsx`, `app/layout.tsx`)
 2. **Start typing an export statement**: `export const `
@@ -111,24 +111,24 @@ export const runtime = 'edge';
 export const fetchCache = 'force-cache';
 ```
 
-## 📸 Examples in Action
+## Examples in Action
 
 See the extension in action with intelligent autocompletion for Next.js Route Segment Config exports:
 
 ### Dynamic Export Autocompletion
 
 ![Dynamic Export Example](.github/images/example.png)
-_Intelligent suggestions for `dynamic` export with detailed descriptions of each option_
+\_Intelligent suggestions for `dynamic`
 
 ### Runtime Export Autocompletion
 
 ![Runtime Export Example](.github/images/example2.png)
-_Smart completion for `runtime` export showing Node.js and Edge runtime options_
+\_Smart completion for `runtime`
 
 ### FetchCache Export Autocompletion
 
 ![FetchCache Export Example](.github/images/example3.png)
-_Comprehensive `fetchCache` options with performance-focused descriptions_
+\_Comprehensive `fetchCache`
 
 The extension provides:
 
@@ -137,7 +137,7 @@ The extension provides:
 - **Performance insights** to help you make informed decisions
 - **Type safety** with proper TypeScript integration
 
-## 🔄 Automated Release System
+## Automated Release System
 
 This extension uses a fully automated release system powered by semantic-release:
 
@@ -157,7 +157,7 @@ This extension uses a fully automated release system powered by semantic-release
 
 This ensures users always get the latest features and fixes automatically!
 
-## 🛠️ Development
+## Development
 
 ### Prerequisites
 
@@ -214,7 +214,7 @@ npm run watch
 3. Test the extension in the new window
 4. Create a Next.js file and test autocompletion
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
@@ -229,7 +229,7 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 All commits must follow [Conventional Commits](https://www.conventionalcommits.org/) format for automatic versioning.
 
-## 📊 Code Coverage
+## Code Coverage
 
 This project maintains high code coverage standards:
 
@@ -239,23 +239,23 @@ This project maintains high code coverage standards:
 
 Coverage reports are automatically generated and uploaded to [Codecov](https://codecov.io/gh/cavalcanteLeo/nextjs-route-config-intellisense).
 
-## 🐛 Issues & Feature Requests
+## Issues & Feature Requests
 
 - **Bug Reports**: [GitHub Issues](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/issues)
 - **Feature Requests**: [GitHub Issues](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/discussions)
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **Next.js Team** for the comprehensive documentation
 - **VS Code Team** for the excellent extension API
 - **Contributors** who help improve this extension
 
-## 📈 Stats
+## Stats
 
 ![VS Code Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/cavalcanteLeo.nextjs-route-config-intellisense)
 ![VS Code Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/cavalcanteLeo.nextjs-route-config-intellisense)

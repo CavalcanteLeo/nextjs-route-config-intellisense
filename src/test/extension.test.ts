@@ -14,8 +14,8 @@ suite('Next.js Route Config IntelliSense Extension Test Suite', () => {
     // Try to get the extension, but don't fail if it's not found
     // The publisher name in package.json has spaces, so VS Code might use different formats
     const possibleIds = [
+      'LeonardoCavalcante.nextjs-route-config-intellisense',
       'cavalcanteLeo.nextjs-route-config-intellisense',
-      'Leonardo Cavalcante.nextjs-route-config-intellisense',
       'leonardocavalcante.nextjs-route-config-intellisense',
     ];
 
