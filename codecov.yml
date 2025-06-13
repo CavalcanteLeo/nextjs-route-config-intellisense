@@ -1,0 +1,29 @@
+coverage:
+  status:
+    project:
+      default:
+        target: 80%
+        threshold: 5%
+    patch:
+      default:
+        target: 70%
+
+fixes:
+  - 'out-instrumented/extension.js::src/extension.ts'
+  - 'out/extension.js::src/extension.ts'
+
+ignore:
+  - 'out/**'
+  - 'out-instrumented/**'
+  - 'node_modules/**'
+  - 'coverage/**'
+  - '*.config.js'
+  - '*.config.mjs'
+  - 'scripts/**'
+  - '**/*.test.ts'
+  - '**/*.spec.ts'
+
+comment:
+  layout: 'reach,diff,flags,tree'
+  behavior: default
+  require_changes: false
