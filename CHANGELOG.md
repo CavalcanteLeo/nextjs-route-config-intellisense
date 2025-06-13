@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/compare/v1.0.1...v1.1.0) (2025-06-13)
+
+
+### Features
+
+* enable Open VSX Registry publishing ([19a0f14](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/commit/19a0f14236ee1632c9ff5b3bdf90b5c6b9b6ae29))
+
 ## [1.0.1](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/compare/v1.0.0...v1.0.1) (2025-06-13)
 
 
