@@ -152,13 +152,8 @@ testProcess.on('close', async code => {
       process.exit(code);
     }
   } catch (error) {
-    console.error('Failed to process coverage:', error.message);
-    // Don't exit with error if coverage processing fails but tests passed
-    if (code === 0) {
-      console.log('Tests passed but coverage processing failed');
-    } else {
-      process.exit(1);
-    }
+    console.error('Error processing coverage:', error);
+    process.exit(1);
   }
 });
 
