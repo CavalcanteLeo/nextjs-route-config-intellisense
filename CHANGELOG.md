@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/compare/v1.1.1...v1.1.2) (2025-06-13)
+
+
+### Bug Fixes
+
+* correct extension ID in test to match published extension ([52b2358](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/commit/52b235872e75dd162c5121a927ec95b038d54a74))
+
 ## [1.1.1](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/compare/v1.1.0...v1.1.1) (2025-06-13)
 
 
