@@ -99,8 +99,13 @@ jobs:
           npx semantic-release --dry-run > semantic-output.txt 2>&1 || true
           cat semantic-output.txt
 
-          if grep -q "The next release version is" semantic-output.txt; then
-            NEXT_VERSION=$(grep "The next release version is" semantic-output.txt | sed 's/.*The next release version is \([0-9.]*\).*/\1/')
+          if grep -q "next release version is" semantic-output.txt; then
+            NEXT_VERSION=$(grep "next release version is" semantic-output.txt | sed 's/.*next release version is \([0-9.]*\).*/\1/')
+            echo "next_version=$NEXT_VERSION" >> $GITHUB_OUTPUT
+            echo "should_release=true" >> $GITHUB_OUTPUT
+            echo "Next version will be: $NEXT_VERSION"
+          elif grep -q "Published release.*on default channel" semantic-output.txt; then
+            NEXT_VERSION=$(grep "Published release.*on default channel" semantic-output.txt | sed 's/.*Published release \([0-9.]*\) on default channel.*/\1/')
             echo "next_version=$NEXT_VERSION" >> $GITHUB_OUTPUT
             echo "should_release=true" >> $GITHUB_OUTPUT
             echo "Next version will be: $NEXT_VERSION"
