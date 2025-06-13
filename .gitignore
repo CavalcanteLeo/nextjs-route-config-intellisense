@@ -1,0 +1,38 @@
+.vscode-test/
+*.vsix
+
+# Coverage reports
+coverage/
+.nyc_output/
+*.lcov
+.c8_output/
+.vscode-test.coverage.mjs
+test-runner.js
+
+
+# Node modules
+node_modules/
+
+# Build output
+out/
+out-instrumented/
+dist/
+
+# Compiled source
+*.js
+*.js.map
+*.d.ts
+
+# VS Code files
+.vscode/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db

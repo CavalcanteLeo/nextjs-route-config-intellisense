@@ -1,0 +1,16 @@
+{
+  "all": true,
+  "include": ["out-instrumented/extension.js"],
+  "exclude": [
+    "out-instrumented/test/**",
+    "**/*.d.ts",
+    "**/*.test.js",
+    "**/node_modules/**"
+  ],
+  "reporter": ["text", "html", "lcov"],
+  "reports-dir": "./coverage",
+  "temp-directory": "./.nyc_output",
+  "check-coverage": false,
+  "source-map": true,
+  "skip-full": false
+}

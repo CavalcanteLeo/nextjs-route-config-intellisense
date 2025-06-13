@@ -1,0 +1,75 @@
+{
+  "categories": [
+    {
+      "title": "## 🚀 Features",
+      "labels": ["feat", "feature"]
+    },
+    {
+      "title": "## 🐛 Bug Fixes",
+      "labels": ["fix", "bugfix"]
+    },
+    {
+      "title": "## 📚 Documentation",
+      "labels": ["docs", "documentation"]
+    },
+    {
+      "title": "## 🔧 Maintenance",
+      "labels": ["chore", "maintenance"]
+    },
+    {
+      "title": "## ⚡ Performance",
+      "labels": ["perf", "performance"]
+    },
+    {
+      "title": "## 🧪 Tests",
+      "labels": ["test", "tests"]
+    },
+    {
+      "title": "## 🔄 Refactoring",
+      "labels": ["refactor"]
+    },
+    {
+      "title": "## 🏗️ Build System",
+      "labels": ["build", "ci"]
+    }
+  ],
+  "ignore_labels": ["ignore"],
+  "sort": "ASC",
+  "template": "#{{CHANGELOG}}\n\n<details>\n<summary>Uncategorized</summary>\n\n#{{UNCATEGORIZED}}\n</details>",
+  "pr_template": "- #{{TITLE}} by @#{{AUTHOR}} in ##{{NUMBER}}",
+  "empty_template": "- No changes",
+  "label_extractor": [
+    {
+      "pattern": "^(feat|feature)(\\(.+\\))?!?:",
+      "target": "feat"
+    },
+    {
+      "pattern": "^(fix|bugfix)(\\(.+\\))?!?:",
+      "target": "fix"
+    },
+    {
+      "pattern": "^(docs|documentation)(\\(.+\\))?!?:",
+      "target": "docs"
+    },
+    {
+      "pattern": "^(chore|maintenance)(\\(.+\\))?!?:",
+      "target": "chore"
+    },
+    {
+      "pattern": "^(perf|performance)(\\(.+\\))?!?:",
+      "target": "perf"
+    },
+    {
+      "pattern": "^(test|tests)(\\(.+\\))?!?:",
+      "target": "test"
+    },
+    {
+      "pattern": "^(refactor)(\\(.+\\))?!?:",
+      "target": "refactor"
+    },
+    {
+      "pattern": "^(build|ci)(\\(.+\\))?!?:",
+      "target": "build"
+    }
+  ]
+}

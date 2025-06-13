@@ -1,0 +1,43 @@
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+      time: '09:00'
+    open-pull-requests-limit: 10
+    reviewers:
+      - 'cavalcanteLeo'
+    assignees:
+      - 'cavalcanteLeo'
+    commit-message:
+      prefix: 'chore'
+      prefix-development: 'chore'
+      include: 'scope'
+    labels:
+      - 'dependencies'
+      - 'auto-merge'
+    ignore:
+      - dependency-name: '@types/*'
+        update-types: ['version-update:semver-patch']
+      - dependency-name: 'typescript'
+        update-types: ['version-update:semver-major']
+
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+      time: '09:00'
+    open-pull-requests-limit: 5
+    reviewers:
+      - 'cavalcanteLeo'
+    assignees:
+      - 'cavalcanteLeo'
+    commit-message:
+      prefix: 'ci'
+      include: 'scope'
+    labels:
+      - 'github-actions'
+      - 'auto-merge'

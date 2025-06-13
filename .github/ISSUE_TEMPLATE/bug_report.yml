@@ -1,0 +1,116 @@
+name: Bug Report
+description: File a bug report to help us improve
+title: '[Bug]: '
+labels: ['bug', 'triage']
+assignees:
+  - cavalcanteLeo
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Details
+      description: How can we get in touch with you if we need more info?
+      placeholder: ex. email@example.com
+    validations:
+      required: false
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Also tell us, what did you expect to happen?
+      placeholder: Tell us what you see!
+      value: 'A bug happened!'
+    validations:
+      required: true
+
+  - type: dropdown
+    id: version
+    attributes:
+      label: Extension Version
+      description: What version of the extension are you running?
+      options:
+        - 0.0.1
+        - Latest from marketplace
+        - Development version
+    validations:
+      required: true
+
+  - type: dropdown
+    id: vscode-version
+    attributes:
+      label: VS Code Version
+      description: What version of VS Code are you using?
+      options:
+        - 1.96.x
+        - 1.95.x
+        - 1.94.x
+        - Other (please specify in description)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating System
+      description: What operating system are you using?
+      options:
+        - Windows
+        - macOS
+        - Linux
+        - Other (please specify in description)
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction-steps
+    attributes:
+      label: Steps to Reproduce
+      description: Please provide detailed steps to reproduce the issue
+      placeholder: |
+        1. Open a Next.js project
+        2. Create a new page.tsx file
+        3. Type 'export const dynamic = '
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+      placeholder: Autocompletion should appear with dynamic options
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+      placeholder: No autocompletion appeared
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/blob/main/CODE_OF_CONDUCT.md)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
