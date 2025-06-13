@@ -4,7 +4,7 @@ const { spawn, execSync } = require('child_process');
 const path = require('path');
 const fs = require('fs');
 
-console.log('🔍 Running VS Code extension tests with V8 coverage...');
+console.log('Running VS Code extension tests with V8 coverage...');
 
 // Setup directories
 const projectRoot = path.join(__dirname, '..');
@@ -12,7 +12,7 @@ const coverageDir = path.join(projectRoot, 'coverage');
 const v8CoverageDir = path.join(projectRoot, '.nyc_output');
 
 // Clean previous coverage data
-console.log('🧹 Cleaning previous coverage data...');
+console.log('Cleaning previous coverage data...');
 [coverageDir, v8CoverageDir].forEach(dir => {
   if (fs.existsSync(dir)) {
     fs.rmSync(dir, { recursive: true, force: true });
@@ -21,14 +21,14 @@ console.log('🧹 Cleaning previous coverage data...');
 });
 
 // Build instrumented extension
-console.log('🔧 Building instrumented extension...');
+console.log('Building instrumented extension...');
 try {
   execSync('node scripts/buildInstrumented.js', {
     stdio: 'inherit',
     cwd: projectRoot,
   });
 } catch (error) {
-  console.error('❌ Failed to build instrumented extension');
+  console.error('Failed to build instrumented extension');
   process.exit(1);
 }
 
@@ -45,7 +45,7 @@ async function main() {
     await runTests({
       extensionDevelopmentPath,
       extensionTestsPath,
-      launchArgs: ['--disable-extensions'],
+      launchArgs: ['--disable-extensions', '--disable-gpu', '--no-sandbox'],
       version: '1.101.0'
     });
   } catch (err) {
@@ -65,19 +65,25 @@ const env = {
   NODE_V8_COVERAGE: v8CoverageDir,
   NODE_OPTIONS: '--enable-source-maps',
   COVERAGE_MODE: 'true',
+  DISPLAY: ':99',
 };
 
-console.log('🚀 Starting VS Code tests with V8 coverage collection...');
+console.log('Starting VS Code tests with V8 coverage collection...');
+
+// Determine the command to run based on the platform
+const isLinux = process.platform === 'linux';
+const command = isLinux ? 'xvfb-run' : 'node';
+const args = isLinux ? ['-a', 'node', 'test-runner.js'] : ['test-runner.js'];
 
 // Run the test runner with V8 coverage
-const testProcess = spawn('node', ['test-runner.js'], {
+const testProcess = spawn(command, args, {
   stdio: 'inherit',
   env,
   cwd: projectRoot,
 });
 
 testProcess.on('close', async code => {
-  console.log('🔄 Processing V8 coverage data...');
+  console.log('Processing V8 coverage data...');
 
   try {
     // Check if we have V8 coverage files
@@ -86,10 +92,8 @@ testProcess.on('close', async code => {
       .filter(f => f.startsWith('coverage-'));
 
     if (coverageFiles.length === 0) {
-      console.warn('⚠️  No V8 coverage files found');
-      console.log(
-        '📊 Generating basic coverage report from instrumented code...'
-      );
+      console.warn('No V8 coverage files found');
+      console.log('Generating basic coverage report from instrumented code...');
 
       // Fallback: Use NYC to analyze the instrumented code
       execSync(
@@ -111,7 +115,7 @@ testProcess.on('close', async code => {
         }
       );
     } else {
-      console.log(`📁 Found ${coverageFiles.length} V8 coverage files`);
+      console.log(`Found ${coverageFiles.length} V8 coverage files`);
 
       // Use c8 to process V8 coverage
       execSync(
@@ -133,25 +137,25 @@ testProcess.on('close', async code => {
     }
 
     if (code === 0) {
-      console.log('✅ Tests completed successfully!');
-      console.log('📊 Coverage report generated in ./coverage/');
-      console.log('🌐 Open ./coverage/index.html to view detailed coverage');
+      console.log('Tests completed successfully!');
+      console.log('Coverage report generated in ./coverage/');
+      console.log('Open ./coverage/index.html to view detailed coverage');
 
       // Show a quick coverage summary
       if (fs.existsSync(path.join(coverageDir, 'lcov-report', 'index.html'))) {
         console.log(
-          '📈 Coverage report available at: ./coverage/lcov-report/index.html'
+          'Coverage report available at: ./coverage/lcov-report/index.html'
         );
       }
     } else {
-      console.error(`❌ Tests failed with exit code ${code}`);
+      console.error(`Tests failed with exit code ${code}`);
       process.exit(code);
     }
   } catch (error) {
-    console.error('❌ Failed to process coverage:', error.message);
+    console.error('Failed to process coverage:', error.message);
     // Don't exit with error if coverage processing fails but tests passed
     if (code === 0) {
-      console.log('⚠️  Tests passed but coverage processing failed');
+      console.log('Tests passed but coverage processing failed');
     } else {
       process.exit(1);
     }
@@ -159,6 +163,6 @@ testProcess.on('close', async code => {
 });
 
 testProcess.on('error', error => {
-  console.error('❌ Failed to start test process:', error);
+  console.error('Failed to start test process:', error);
   process.exit(1);
 });

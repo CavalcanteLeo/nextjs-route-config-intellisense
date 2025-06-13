@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const babel = require('@babel/core');
 
-console.log('🔧 Building instrumented extension for coverage...');
+console.log('Building instrumented extension for coverage...');
 
 // Directories
 const srcDir = path.join(__dirname, '..', 'src');
@@ -84,9 +84,7 @@ function processDirectory(srcPath, outPath) {
       processDirectory(srcItemPath, outItemPath);
     } else if (item.endsWith('.ts') && !item.endsWith('.d.ts')) {
       const jsOutputPath = outItemPath.replace(/\.ts$/, '.js');
-      console.log(
-        `📦 Transforming: ${path.relative(process.cwd(), srcItemPath)}`
-      );
+      console.log(`Transforming: ${path.relative(process.cwd(), srcItemPath)}`);
       transformFile(srcItemPath, jsOutputPath);
     }
   }
@@ -94,7 +92,7 @@ function processDirectory(srcPath, outPath) {
 
 try {
   // Transform src directory (includes both extension and test files)
-  console.log('🎯 Instrumenting extension and test files...');
+  console.log('Instrumenting extension and test files...');
   processDirectory(srcDir, outDir);
 
   // Copy package.json for extension loading
@@ -107,9 +105,9 @@ try {
     JSON.stringify(packageJson, null, 2)
   );
 
-  console.log('✅ Instrumented extension built successfully!');
-  console.log(`📁 Output directory: ${outDir}`);
+  console.log('Instrumented extension built successfully!');
+  console.log(`Output directory: ${outDir}`);
 } catch (error) {
-  console.error('❌ Failed to build instrumented extension:', error);
+  console.error('Failed to build instrumented extension:', error);
   process.exit(1);
 }
