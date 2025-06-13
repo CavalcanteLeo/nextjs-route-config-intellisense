@@ -1,3 +1,27 @@
+# 1.0.0 (2025-06-13)
+
+
+### Bug Fixes
+
+* add missing babel.config.js for coverage instrumentation ([71b2be2](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/commit/71b2be2eed5bb727092349a5867d79c84b88acc2))
+* add missing coverage scripts and fix dependency review config ([d503e8a](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/commit/d503e8ad2d3f5cf1aa7078a39cdfbb9f7ce55ec1))
+* add missing coverage scripts for CI/CD pipeline ([c8756e9](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/commit/c8756e9764305b05fb09dceac5380bf759ce65e4))
+* add missing coverage scripts for CI/CD pipeline ([b24f21b](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/commit/b24f21b16f1b49d5ef931e74b69d5cfa04edd1b9))
+* add permissions for PR coverage comments ([8bd69b7](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/commit/8bd69b7b3bed0133e6536b4621332440007b3162))
+* add proper GitHub token configuration for semantic-release ([68f0faf](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/commit/68f0faf4f8dbc1f19a6ff30e801eb72e765da01e))
+* add xvfb for headless testing ([011ce91](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/commit/011ce9169dc12ff666b21846fabb8ae2f92a6d9c))
+* add xvfb for headless testing ([c6bfc19](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/commit/c6bfc195288874e08b8d0632e320b9716461c24c))
+* babel configuration for TypeScript parsing in coverage ([cfb5e10](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/commit/cfb5e10fd3227ab7556c4c823590ff1edbbc73d3))
+* disable Husky hooks during semantic-release in CI ([aec0e28](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/commit/aec0e287e93c72a65a23065e1b3f9b86589d2ebd))
+* improve semantic-release version detection in auto-release workflow ([3c07781](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/commit/3c077810fc065451fe67f8c3e81c7f12798183db))
+* remove dependency review workflow ([b5d3bb7](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/commit/b5d3bb7ecaf54f16ceb463b363431d675484bc13))
+
+
+### Features
+
+* add fully automated release system with semantic versioning ([8b65b14](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/commit/8b65b1492b4ccfc5cf3f3bf17cee9ee1b3fe47d6))
+* initial Next.js Route Config IntelliSense extension ([431a8ae](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/commit/431a8ae88ed5becc676f4de0546779741fb11403))
+
 # Changelog
 
 All notable changes to the "Next.js Route Config IntelliSense" extension will be documented in this file.
@@ -30,4 +54,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Comprehensive testing with Mocha and @vscode/test
 - Code quality tools: ESLint, Prettier, Husky, Commitlint
 - Automated coverage reporting with Istanbul/NYC
-- CI/CD ready with proper git hooks and linting 
+- CI/CD ready with proper git hooks and linting
