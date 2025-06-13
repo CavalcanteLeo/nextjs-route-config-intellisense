@@ -4,8 +4,8 @@
 [![Auto Release](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/actions/workflows/auto-release.yml/badge.svg)](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/actions/workflows/auto-release.yml)
 [![codecov](https://codecov.io/gh/cavalcanteLeo/nextjs-route-config-intellisense/branch/main/graph/badge.svg)](https://codecov.io/gh/cavalcanteLeo/nextjs-route-config-intellisense)
 [![GitHub Release](https://img.shields.io/github/v/release/cavalcanteLeo/nextjs-route-config-intellisense)](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/releases)
-[![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/cavalcanteLeo.nextjs-route-config-intellisense)](https://marketplace.visualstudio.com/items?itemName=cavalcanteLeo.nextjs-route-config-intellisense)
-[![Open VSX](https://img.shields.io/open-vsx/v/cavalcanteLeo/nextjs-route-config-intellisense)](https://open-vsx.org/extension/cavalcanteLeo/nextjs-route-config-intellisense)
+[![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/LeonardoCavalcante.nextjs-route-config-intellisense)](https://marketplace.visualstudio.com/items?itemName=LeonardoCavalcante.nextjs-route-config-intellisense)
+[![Open VSX](https://img.shields.io/open-vsx/v/LeonardoCavalcante/nextjs-route-config-intellisense)](https://open-vsx.org/extension/LeonardoCavalcante/nextjs-route-config-intellisense)
 
 Intelligent autocompletion for Next.js Route Segment Config exports. Get instant suggestions for all Next.js route configuration options with detailed explanations and proper TypeScript support.
 
