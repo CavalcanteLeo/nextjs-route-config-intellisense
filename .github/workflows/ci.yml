@@ -1,10 +1,13 @@
 name: CI
 
 on:
-  push:
-    branches: [main, develop]
   pull_request:
-    branches: [main, develop]
+    branches: [main]
+  push:
+    branches: [main]
+    paths-ignore:
+      - '**.md'
+      - 'CHANGELOG.md'
 
 permissions:
   contents: read
@@ -15,20 +18,14 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x]
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Setup Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '20.x'
           cache: 'npm'
 
       - name: Install system dependencies
@@ -42,23 +39,19 @@ jobs:
       - name: Run linting
         run: npm run lint
 
-      - name: Check code formatting
+      - name: Check formatting
         run: npm run format:check
-
-      - name: Compile TypeScript
-        run: npm run compile
 
       - name: Run tests with coverage
         run: npm run test:coverage
 
-      - name: Upload coverage reports to Codecov
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage/lcov.info
-          flags: unittests
-          name: codecov-umbrella
-          fail_ci_if_error: false
+          flags: ci
+          name: codecov-ci
 
       - name: Comment PR with coverage
         if: github.event_name == 'pull_request'
@@ -67,33 +60,3 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           lcov-file: ./coverage/lcov.info
           delete-old-comments: true
-
-  build:
-    runs-on: ubuntu-latest
-    needs: test
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Install vsce
-        run: npm install -g @vscode/vsce
-
-      - name: Package extension
-        run: vsce package
-
-      - name: Upload VSIX artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: vsix-package
-          path: '*.vsix'
-          retention-days: 30

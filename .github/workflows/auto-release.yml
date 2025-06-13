@@ -1,0 +1,177 @@
+name: Auto Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  auto-release:
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests with coverage
+        run: npm run test:coverage
+
+      - name: Install release tools
+        run: |
+          npm install -g @vscode/vsce
+          npm install -g ovsx
+          npm install -g semantic-release
+          npm install -g @semantic-release/changelog
+          npm install -g @semantic-release/git
+          npm install -g @semantic-release/github
+
+      - name: Create semantic-release config
+        run: |
+          cat > .releaserc.json << 'EOF'
+          {
+            "branches": ["main"],
+            "plugins": [
+              "@semantic-release/commit-analyzer",
+              "@semantic-release/release-notes-generator",
+              [
+                "@semantic-release/changelog",
+                {
+                  "changelogFile": "CHANGELOG.md"
+                }
+              ],
+              [
+                "@semantic-release/npm",
+                {
+                  "npmPublish": false
+                }
+              ],
+              [
+                "@semantic-release/git",
+                {
+                  "assets": ["package.json", "package-lock.json", "CHANGELOG.md"],
+                  "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+                }
+              ],
+              [
+                "@semantic-release/github",
+                {
+                  "assets": [
+                    {
+                      "path": "*.vsix",
+                      "label": "VS Code Extension"
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+          EOF
+
+      - name: Determine next version
+        id: semantic
+        run: |
+          npx semantic-release --dry-run > semantic-output.txt 2>&1 || true
+          cat semantic-output.txt
+
+          if grep -q "The next release version is" semantic-output.txt; then
+            NEXT_VERSION=$(grep "The next release version is" semantic-output.txt | sed 's/.*The next release version is \([0-9.]*\).*/\1/')
+            echo "next_version=$NEXT_VERSION" >> $GITHUB_OUTPUT
+            echo "should_release=true" >> $GITHUB_OUTPUT
+            echo "Next version will be: $NEXT_VERSION"
+          else
+            echo "should_release=false" >> $GITHUB_OUTPUT
+            echo "No release needed - no significant changes detected"
+          fi
+
+      - name: Update package.json version
+        if: steps.semantic.outputs.should_release == 'true'
+        run: |
+          npm version ${{ steps.semantic.outputs.next_version }} --no-git-tag-version
+          echo "Updated package.json to version ${{ steps.semantic.outputs.next_version }}"
+
+      - name: Package extension
+        if: steps.semantic.outputs.should_release == 'true'
+        run: |
+          vsce package
+          echo "Extension packaged successfully"
+
+      - name: Run semantic-release
+        if: steps.semantic.outputs.should_release == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          npx semantic-release
+
+      - name: Publish to VS Code Marketplace
+        if: steps.semantic.outputs.should_release == 'true'
+        run: |
+          echo "Publishing to VS Code Marketplace..."
+          vsce publish --pat ${{ secrets.VSCE_PAT }}
+          echo "Successfully published to VS Code Marketplace"
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+
+      - name: Publish to Open VSX Registry
+        if: steps.semantic.outputs.should_release == 'true'
+        run: |
+          echo "Publishing to Open VSX Registry..."
+          ovsx publish *.vsix --pat ${{ secrets.OVSX_PAT }}
+          echo "Successfully published to Open VSX Registry"
+        env:
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
+
+      - name: Upload coverage to Codecov
+        if: steps.semantic.outputs.should_release == 'true'
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/lcov.info
+          flags: release
+          name: codecov-release
+
+      - name: Create release summary
+        if: steps.semantic.outputs.should_release == 'true'
+        run: |
+          echo "## Release Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Version:** ${{ steps.semantic.outputs.next_version }}" >> $GITHUB_STEP_SUMMARY
+          echo "**VS Code Marketplace:** Published" >> $GITHUB_STEP_SUMMARY
+          echo "**Open VSX Registry:** Published" >> $GITHUB_STEP_SUMMARY
+          echo "**GitHub Release:** Created" >> $GITHUB_STEP_SUMMARY
+          echo "**Coverage:** Uploaded to Codecov" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Extension is now live and available for download!**" >> $GITHUB_STEP_SUMMARY
+
+      - name: No release needed
+        if: steps.semantic.outputs.should_release == 'false'
+        run: |
+          echo "## No Release Needed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "No significant changes detected that warrant a new release." >> $GITHUB_STEP_SUMMARY
+          echo "Commits must follow conventional commit format:" >> $GITHUB_STEP_SUMMARY
+          echo "- \`feat:\` for new features (minor version bump)" >> $GITHUB_STEP_SUMMARY
+          echo "- \`fix:\` for bug fixes (patch version bump)" >> $GITHUB_STEP_SUMMARY
+          echo "- \`BREAKING CHANGE:\` for breaking changes (major version bump)" >> $GITHUB_STEP_SUMMARY

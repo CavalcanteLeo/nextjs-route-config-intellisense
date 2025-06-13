@@ -2,121 +2,288 @@
 
 Thank you for your interest in contributing! This guide will help you get started.
 
-## Development Setup
+## 🚀 Automated Release System
 
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Open in VS Code: `code .`
-4. Press `F5` to run the extension in a new Extension Development Host window
+This project uses **semantic-release** for fully automated versioning and publishing. Here's how it works:
 
-## Code Quality
+### How Releases Work
 
-This project uses several tools to maintain code quality:
+1. **Merge to Main**: When code is merged to the `main` branch, the auto-release workflow automatically:
 
-### ESLint
+   - Analyzes commit messages using conventional commit format
+   - Determines the next version (patch, minor, or major)
+   - Updates `package.json` version
+   - Creates a Git tag
+   - Generates changelog
+   - Creates GitHub release
+   - Publishes to VS Code Marketplace
+   - Publishes to Open VSX Registry
+   - Uploads coverage reports
 
-- Run linting: `npm run lint`
-- Fix linting issues: `npm run lint:fix`
+2. **No Manual Versioning**: You don't need to manually update version numbers or create releases!
 
-### Prettier
+### Conventional Commits
 
-- Format code: `npm run format`
-- Check formatting: `npm run format:check`
+All commits **must** follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
 
-### Testing
-
-- Run tests: `npm test`
-- Run tests with coverage: `npm run test:coverage`
-
-## Commit Message Convention
-
-This project follows the [Conventional Commits](https://www.conventionalcommits.org/) specification. All commit messages must be formatted as:
+#### Format
 
 ```
-<type>(<scope>): <description>
+<type>[optional scope]: <description>
 
 [optional body]
 
 [optional footer(s)]
 ```
 
-### Types
+#### Types and Version Bumps
 
-- **feat**: A new feature
-- **fix**: A bug fix
-- **docs**: Documentation only changes
-- **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
-- **refactor**: A code change that neither fixes a bug nor adds a feature
-- **test**: Adding missing tests or correcting existing tests
-- **chore**: Changes to the build process or auxiliary tools and libraries
-- **perf**: A code change that improves performance
-- **ci**: Changes to CI configuration files and scripts
-- **build**: Changes that affect the build system or external dependencies
-- **revert**: Reverts a previous commit
+| Type       | Description              | Version Bump              | Example                                   |
+| ---------- | ------------------------ | ------------------------- | ----------------------------------------- |
+| `feat`     | New feature              | **Minor** (0.1.0 → 0.2.0) | `feat: add runtime config completion`     |
+| `fix`      | Bug fix                  | **Patch** (0.1.0 → 0.1.1) | `fix: resolve duplicate completion items` |
+| `docs`     | Documentation            | **None**                  | `docs: update README with examples`       |
+| `style`    | Code style changes       | **None**                  | `style: format code with prettier`        |
+| `refactor` | Code refactoring         | **None**                  | `refactor: simplify completion logic`     |
+| `test`     | Adding tests             | **None**                  | `test: add coverage for edge cases`       |
+| `chore`    | Maintenance              | **None**                  | `chore: update dependencies`              |
+| `ci`       | CI/CD changes            | **None**                  | `ci: add coverage reporting`              |
+| `perf`     | Performance improvements | **Patch**                 | `perf: optimize completion matching`      |
 
-### Examples
+#### Breaking Changes
 
-```bash
-feat: add support for maxDuration export
-fix: resolve completion items duplication issue
-docs: update README with installation instructions
-test: add comprehensive coverage for all completion types
-refactor: simplify completion item creation logic
-chore: update dependencies to latest versions
+For **major** version bumps (1.0.0 → 2.0.0), include `BREAKING CHANGE:` in the footer:
+
+```
+feat: redesign completion API
+
+BREAKING CHANGE: The completion provider now requires VS Code 1.100.0 or higher
 ```
 
-### Rules
+#### Examples
 
-- Use lowercase for the type and description
-- Keep the header under 72 characters
-- Use the imperative mood ("add" not "added" or "adds")
-- Don't end the subject line with a period
-- Separate the header from the body with a blank line
-- Wrap the body at 100 characters
-- Use the body to explain what and why, not how
+```bash
+# Minor version bump (new feature)
+git commit -m "feat: add experimental_ppr config support"
 
-## Git Hooks
+# Patch version bump (bug fix)
+git commit -m "fix: handle malformed export statements gracefully"
 
-This project uses [Husky](https://typicode.github.io/husky/) to run git hooks:
+# No version bump (documentation)
+git commit -m "docs: add troubleshooting section to README"
 
-### Pre-commit Hook
+# Major version bump (breaking change)
+git commit -m "feat: require VS Code 1.100.0
 
-- Runs `lint-staged` to format and lint staged files
-- Runs tests to ensure nothing is broken
-- Prevents commits if any step fails
+BREAKING CHANGE: Dropped support for VS Code versions below 1.100.0"
+```
 
-### Commit-msg Hook
+### Skipping Releases
 
-- Validates commit messages against conventional commit format
-- Prevents commits with invalid messages
+To skip the auto-release process, add `[skip ci]` to your commit message:
 
-## Pull Request Process
+```bash
+git commit -m "docs: fix typo [skip ci]"
+```
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feat/your-feature-name`
-3. Make your changes following the code quality guidelines
-4. Write or update tests as needed
-5. Ensure all tests pass: `npm test`
-6. Commit your changes using conventional commit format
-7. Push to your fork and submit a pull request
+## 🛠️ Development Setup
 
-## Code Style
+### Prerequisites
 
-- Use TypeScript for all code
-- Follow the existing code style (enforced by Prettier and ESLint)
-- Write meaningful variable and function names
-- Add JSDoc comments for public APIs
-- Keep functions small and focused
-- Use early returns to reduce nesting
+- Node.js 20.x or higher
+- npm (comes with Node.js)
+- VS Code or Cursor
 
-## Testing
+### Setup
 
-- Write tests for new features and bug fixes
-- Aim for high test coverage
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/cavalcanteLeo/nextjs-route-config-intellisense.git
+   cd nextjs-route-config-intellisense
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Install Husky hooks**
+   ```bash
+   npm run prepare
+   ```
+
+### Development Workflow
+
+1. **Create a feature branch**
+
+   ```bash
+   git checkout -b feat/your-feature-name
+   ```
+
+2. **Make your changes**
+
+   - Edit code in `src/`
+   - Add tests in `src/test/`
+   - Update documentation if needed
+
+3. **Test your changes**
+
+   ```bash
+   # Run tests
+   npm test
+
+   # Run tests with coverage
+   npm run test:coverage
+
+   # Run linting
+   npm run lint
+
+   # Fix linting issues
+   npm run lint:fix
+
+   # Check formatting
+   npm run format:check
+
+   # Fix formatting
+   npm run format
+   ```
+
+4. **Commit with conventional format**
+
+   ```bash
+   git add .
+   git commit -m "feat: add your feature description"
+   ```
+
+5. **Push and create PR**
+   ```bash
+   git push origin feat/your-feature-name
+   ```
+
+### Testing the Extension
+
+1. **Open in VS Code**
+
+   - Open the project in VS Code
+   - Press `F5` to launch Extension Development Host
+   - Test the extension in the new window
+
+2. **Manual Testing**
+   - Create a Next.js file (e.g., `page.tsx`)
+   - Type `export const ` and trigger autocomplete
+   - Verify completions appear correctly
+
+## 📋 Code Standards
+
+### TypeScript
+
+- Use strict TypeScript configuration
+- Prefer interfaces over types
+- Avoid `any` type - use specific types
+- Use readonly props for React components
+
+### Code Style
+
+- Use Prettier for formatting (automatic via pre-commit hooks)
+- Use ESLint for code quality (automatic via pre-commit hooks)
+- Follow functional programming patterns
+- Use descriptive variable and function names
+
+### Testing
+
+- Write tests for all new features
+- Maintain 100% function coverage
+- Test edge cases and error conditions
 - Use descriptive test names
-- Test both happy paths and edge cases
-- Mock external dependencies appropriately
 
-## Questions?
+### File Structure
 
-If you have questions about contributing, please open an issue or start a discussion.
+```
+src/
+├── extension.ts          # Main extension entry point
+├── completionProvider.ts # Completion logic
+├── types.ts             # Type definitions
+└── test/
+    ├── suite/
+    │   └── extension.test.ts  # Integration tests
+    └── runTest.ts       # Test runner
+```
+
+## 🔄 Pull Request Process
+
+1. **Ensure CI passes**
+
+   - All tests must pass
+   - Code coverage must be maintained
+   - Linting and formatting checks must pass
+
+2. **Use conventional commit format**
+
+   - PR title should follow conventional commit format
+   - This determines the version bump when merged
+
+3. **Update documentation**
+
+   - Update README if adding new features
+   - Add JSDoc comments for new functions
+   - Update CHANGELOG.md if needed
+
+4. **Review process**
+   - PRs require approval before merging
+   - Address all review feedback
+   - Ensure branch is up to date with main
+
+## 🚀 Release Process
+
+### Automatic Releases (Recommended)
+
+Simply merge your PR to `main` with a conventional commit message. The system will:
+
+1. Analyze your commit messages
+2. Determine the appropriate version bump
+3. Create a release automatically
+4. Publish to all marketplaces
+
+### Manual Releases (Emergency Only)
+
+If you need to create a manual release:
+
+1. Go to GitHub Actions
+2. Run the "Manual Release" workflow
+3. Provide the version number (e.g., `1.2.3`)
+
+## 🐛 Bug Reports
+
+When reporting bugs, please include:
+
+- VS Code/Cursor version
+- Extension version
+- Steps to reproduce
+- Expected vs actual behavior
+- Screenshots if applicable
+
+## 💡 Feature Requests
+
+For feature requests, please:
+
+- Check existing issues first
+- Describe the use case
+- Explain why it would be valuable
+- Consider implementation complexity
+
+## 📞 Getting Help
+
+- **Issues**: [GitHub Issues](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/cavalcanteLeo/nextjs-route-config-intellisense/discussions)
+
+## 🎉 Recognition
+
+Contributors will be recognized in:
+
+- CHANGELOG.md for each release
+- GitHub releases
+- README.md contributors section
+
+Thank you for contributing! 🚀
