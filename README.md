@@ -111,6 +111,32 @@ export const runtime = 'edge';
 export const fetchCache = 'force-cache';
 ```
 
+## 📸 Examples in Action
+
+See the extension in action with intelligent autocompletion for Next.js Route Segment Config exports:
+
+### Dynamic Export Autocompletion
+
+![Dynamic Export Example](.github/images/example.png)
+_Intelligent suggestions for `dynamic` export with detailed descriptions of each option_
+
+### Runtime Export Autocompletion
+
+![Runtime Export Example](.github/images/example2.png)
+_Smart completion for `runtime` export showing Node.js and Edge runtime options_
+
+### FetchCache Export Autocompletion
+
+![FetchCache Export Example](.github/images/example3.png)
+_Comprehensive `fetchCache` options with performance-focused descriptions_
+
+The extension provides:
+
+- **Context-aware suggestions** that only appear when relevant
+- **Rich descriptions** explaining the purpose and impact of each option
+- **Performance insights** to help you make informed decisions
+- **Type safety** with proper TypeScript integration
+
 ## 🔄 Automated Release System
 
 This extension uses a fully automated release system powered by semantic-release:
