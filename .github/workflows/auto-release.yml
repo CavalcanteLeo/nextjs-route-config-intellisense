@@ -155,7 +155,7 @@ jobs:
 
       - name: Upload coverage to Codecov
         if: steps.semantic.outputs.should_release == 'true'
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v6
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage/lcov.info
